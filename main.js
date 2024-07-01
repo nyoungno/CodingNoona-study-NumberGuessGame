@@ -4,7 +4,7 @@
 //랜덤번호가 < 유저번호 Down!!
 //랜덤번호가 > 유전번호 up!!
 //Rest버튼을 누르면 게임이 리셋된다.
-// 5번의 기회를 다쓰면 게임이 끝난다. (더이상 추측 불가. 버튼이 disavle)
+// 5번의 기회를 다쓰면 게임이 끝난다. (더이상 추측 불가. 버튼이 disabled)
 //유저가 1~100 범위 밖에 숫자를 입력하면 알려준다. 기회를 깍지 않는다.
 //유저가 이미 입력한 숫자를 또입 입력하면, 알려준다. 기회를 깍지 않는다.
 
@@ -32,7 +32,7 @@ function pickRandomNum() {
 }
 
 function play() {
-  if (gameOver) return; // 게임이 종료되었으면 아무것도 하지 않음
+  if (gameOver) return;
 
   let userValue = parseInt(userInput.value);
   if (isNaN(userValue) || userValue < 1 || userValue > 100) {
@@ -61,7 +61,7 @@ function play() {
         return;
       }
     }
-  }
+  } // 입력한 숫자 범위안에서만 입력하는 기능
 
   history.push(userValue);
   updateHistory();
