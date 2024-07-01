@@ -1,5 +1,47 @@
+@import "https://fonts.googleapis.com/css?family=Bungee";
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+
+body {
+  background: #201f5b;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+}
+
+h1 {
+  font-weight: bolder;
+  font-family: "Bungee", sans-serif;
+}
+
 .container {
+  border: 10px solid white;
+  border-radius: 20px;
+  min-height: 80vh;
   text-align: center;
-  font-size: 50px;
+  background-color: rgba(247, 243, 242, 0.7);
+  font-weight: bolder;
+  font-size: xx-large;
+  font-family: "Jua", sans-serif;
+}
+
+.form-control {
+  text-align: center;
+  width: 30%;
+  font-size: 1.2rem;
+}
+
+.button-style {
+  height: 40px;
+  width: 70px;
+  border-radius: 50px;
+  font-size: 12pt;
   font-weight: bold;
+}
+
+.input-box {
+  display: flex;
+  justify-content: center;
 }
