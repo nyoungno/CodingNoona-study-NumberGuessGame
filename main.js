@@ -21,12 +21,16 @@ let resultAreaImg = document.querySelector(".main-img");
 let historyArea = document.getElementById("history-area");
 
 let answerArea = document.getElementById("answer-area");
+let AnswerButton = document.getElementById("answer-button");
+
+answerArea.style.display = "none";
 
 playButton.addEventListener("click", play);
 resetButton.addEventListener("click", reset);
 userInput.addEventListener("focus", function () {
   userInput.value = "";
 });
+AnswerButton.addEventListener("click", toggleAnswerArea);
 
 function pickRandomNum() {
   computerNum = Math.floor(Math.random() * 100) + 1;
@@ -109,5 +113,13 @@ function reset() {
 function updateHistory() {
   historyArea.textContent = "입력한 숫자: " + history.join(", ");
 }
+
+function toggleAnswerArea() {
+  if (answerArea.style.display === "none") {
+    answerArea.style.display = "block";
+  } else {
+    answerArea.style.display = "none";
+  }
+} // 정답 미리보기
 
 pickRandomNum();
