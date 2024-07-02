@@ -112,7 +112,7 @@ function reset() {
   resultArea.textContent = "새로운 게임을 시작하세요";
   gameOver = false;
   playButton.disabled = false;
-  chances = 3;
+  chances = 5;
   chanceArea.textContent = `남은 기회: ${chances}`;
   history = [];
   historyArea.textContent = "입력한 숫자: " + history.join(", ");
