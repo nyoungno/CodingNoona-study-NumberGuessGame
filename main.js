@@ -13,7 +13,7 @@ let playButton = document.getElementById("play-button");
 let userInput = document.getElementById("user-input");
 let resultArea = document.getElementById("result-area");
 let resetButton = document.getElementById("reset-button");
-let chances = 3;
+let chances = 5;
 let gameOver = false;
 let chanceArea = document.getElementById("chance-area");
 let history = [];
@@ -22,8 +22,11 @@ let historyArea = document.getElementById("history-area");
 
 let answerArea = document.getElementById("answer-area");
 let AnswerButton = document.getElementById("answer-button");
+let hintArea = document.getElementById("hint-area");
+let HintButton = document.getElementById("hint-button");
 
 answerArea.style.display = "none";
+hintArea.style.display = "none";
 
 playButton.addEventListener("click", play);
 resetButton.addEventListener("click", reset);
@@ -31,11 +34,16 @@ userInput.addEventListener("focus", function () {
   userInput.value = "";
 });
 AnswerButton.addEventListener("click", toggleAnswerArea);
+HintButton.addEventListener("click", toggleHintArea);
 
 function pickRandomNum() {
   computerNum = Math.floor(Math.random() * 100) + 1;
   console.log("정답", computerNum);
   answerArea.textContent = `정답: ${computerNum}`;
+
+  hintLow = Math.max(computerNum - 5, 1);
+  hintHigh = Math.min(computerNum + 5, 100);
+  hintArea.textContent = `${hintLow} ~ ${hintHigh} 사이 숫자입니다.`;
 }
 
 function play() {
@@ -55,7 +63,7 @@ function play() {
     return;
   }
 
-  for (let i = 1; i <= 2; i++) {
+  for (let i = 1; i <= 4; i++) {
     if (history.length >= i) {
       let lastValue = history[history.length - i];
       if (computerNum > lastValue && userValue <= lastValue) {
@@ -121,5 +129,13 @@ function toggleAnswerArea() {
     answerArea.style.display = "none";
   }
 } // 정답 미리보기
+
+function toggleHintArea() {
+  if (hintArea.style.display === "none") {
+    hintArea.style.display = "block";
+  } else {
+    hintArea.style.display = "none";
+  }
+}
 
 pickRandomNum();
