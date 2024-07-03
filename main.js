@@ -24,6 +24,7 @@ let answerArea = document.getElementById("answer-area");
 let AnswerButton = document.getElementById("answer-button");
 let hintArea = document.getElementById("hint-area");
 let HintButton = document.getElementById("hint-button");
+let chanceSelect = document.getElementById("chance-select");
 
 answerArea.style.display = "none";
 hintArea.style.display = "none";
@@ -33,16 +34,30 @@ resetButton.addEventListener("click", reset);
 userInput.addEventListener("focus", function () {
   userInput.value = "";
 });
-AnswerButton.addEventListener("click", toggleAnswerArea);
-HintButton.addEventListener("click", toggleHintArea);
+AnswerButton.addEventListener("click", function () {
+  toggleArea("answer-area");
+});
+HintButton.addEventListener("click", function () {
+  toggleArea("hint-area");
+});
+chanceSelect.addEventListener("change", setChances);
+
+function updateChanceArea() {
+  chanceArea.textContent = `남은기회: ${chances}`;
+}
+
+function setChances() {
+  chances = parseInt(chanceSelect.value);
+  updateChanceArea();
+}
 
 function pickRandomNum() {
   computerNum = Math.floor(Math.random() * 100) + 1;
   console.log("정답", computerNum);
   answerArea.textContent = `정답: ${computerNum}`;
 
-  hintLow = Math.max(computerNum - 5, 1);
-  hintHigh = Math.min(computerNum + 5, 100);
+  let hintLow = Math.max(computerNum - 5, 1);
+  let hintHigh = Math.min(computerNum + 5, 100);
   hintArea.textContent = `${hintLow} ~ ${hintHigh} 사이 숫자입니다.`;
 }
 
@@ -63,7 +78,7 @@ function play() {
     return;
   }
 
-  for (let i = 1; i <= 4; i++) {
+  for (let i = 1; i <= chanceSelect.value; i++) {
     if (history.length >= i) {
       let lastValue = history[history.length - i];
       if (computerNum > lastValue && userValue <= lastValue) {
@@ -76,12 +91,13 @@ function play() {
         return;
       }
     }
-  } // 입력한 숫자 범위안에서만 입력하는 기능
+  }
 
   history.push(userValue);
   updateHistory();
   chances--;
-  chanceArea.textContent = `남은 기회: ${chances}`;
+  updateChanceArea();
+  chanceSelect.disabled = true;
 
   if (userValue < computerNum) {
     resultAreaImg.src = "./image/up.png";
@@ -112,8 +128,8 @@ function reset() {
   resultArea.textContent = "새로운 게임을 시작하세요";
   gameOver = false;
   playButton.disabled = false;
-  chances = 5;
-  chanceArea.textContent = `남은 기회: ${chances}`;
+  chanceSelect.disabled = false;
+  setChances();
   history = [];
   historyArea.textContent = "입력한 숫자: " + history.join(", ");
 }
@@ -122,20 +138,15 @@ function updateHistory() {
   historyArea.textContent = "입력한 숫자: " + history.join(", ");
 }
 
-function toggleAnswerArea() {
-  if (answerArea.style.display === "none") {
-    answerArea.style.display = "block";
+function toggleArea(areaId) {
+  let area = document.getElementById(areaId);
+  if (area.style.display === "none") {
+    area.style.display = "block";
   } else {
-    answerArea.style.display = "none";
-  }
-} // 정답 미리보기
-
-function toggleHintArea() {
-  if (hintArea.style.display === "none") {
-    hintArea.style.display = "block";
-  } else {
-    hintArea.style.display = "none";
+    area.style.display = "none";
   }
 }
 
 pickRandomNum();
+updateChanceArea();
+setChances();

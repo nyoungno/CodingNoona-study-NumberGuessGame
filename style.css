@@ -48,6 +48,22 @@ h1 {
   justify-content: center;
 }
 
+.select-box {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.select-control {
+  text-align: center;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  appearance: none;
+  height: 44px;
+  font-weight: bold;
+  background: #9b98a7;
+}
+
 @media (max-width: 992px) {
   .form-control {
     text-align: center;
